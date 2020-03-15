@@ -16,13 +16,29 @@ class Tab1 extends Component {
     bmiColor: 'black'
   }
 
-  componentDidMount = () => { AsyncStorage.getItem('mass').then((value) => this.setState({
-    'mass': value
-    }));
-    AsyncStorage.getItem('height').then((value) => this.setState({
-  'height': value
-    }))
+
+  componentDidMount = () => {
+    this.props.navigation.addListener('focus', () => {
+      AsyncStorage.getItem('mass').then((value) =>
+       this.setState({
+      'mass': value
+       }));
+       AsyncStorage.getItem('height').then((value) => 
+        this.setState({
+        'height': value
+       }));
+    });  
+    AsyncStorage.getItem('mass').then((value) =>
+       this.setState({
+      'mass': value
+       }));
+       AsyncStorage.getItem('height').then((value) => 
+        this.setState({
+        'height': value
+       }));
+    
   }  
+ 
 
   onChangeMassInput = (event) => {
     this.setState({
@@ -38,23 +54,36 @@ class Tab1 extends Component {
 
    count = () => {
      Keyboard.dismiss();
+     let resultBmi=0;
      if (this.state.heightInput == '' || this.state.massInput == '') alert ('Please provide correct values!')
      else{
-      let heightFloatM = parseFloat(this.state.heightInput)/100;
-      let massFloatKg = parseFloat(this.state.massInput);
-      let resultBmi = massFloatKg / (heightFloatM*heightFloatM);
-      this.setState({bmi: resultBmi.toFixed(2)})
-      if(resultBmi<18.5) this.setState({bmiColor: 'grey'})
-      if(resultBmi>=18.5 && resultBmi<23) this.setState({bmiColor: 'green'})
-      if(resultBmi>=23 && resultBmi<25) this.setState({bmiColor: '#eff40f'})
-      if(resultBmi>=25 && resultBmi<30) this.setState({bmiColor: '#ff6666'})
-      if(resultBmi>30) this.setState({bmiColor: '#cc0000'})      
+       if(this.state.mass=='kg')
+            {
+              let heightFloatM = parseFloat(this.state.heightInput)/100;
+              let massFloatKg = parseFloat(this.state.massInput);
+              resultBmi = massFloatKg / (heightFloatM*heightFloatM);
+              this.setState({bmi: resultBmi.toFixed(2)})
+            }
+       else if(this.state.mass=='lbs')
+            {
+              let heightFloatIn = parseFloat(this.state.heightInput);
+              let massFloatLbs = parseFloat(this.state.massInput);
+              resultBmi = 703*massFloatLbs / (heightFloatIn*heightFloatIn);
+              this.setState({bmi: resultBmi.toFixed(2)})
+            }
+            if(resultBmi<18.5) this.setState({bmiColor: 'grey'})
+            if(resultBmi>=18.5 && resultBmi<23) this.setState({bmiColor: 'green'})
+            if(resultBmi>=23 && resultBmi<25) this.setState({bmiColor: '#eff40f'})
+            if(resultBmi>=25 && resultBmi<30) this.setState({bmiColor: '#ff6666'})
+            if(resultBmi>30) this.setState({bmiColor: '#cc0000'})      
+       
      }
    }
 
   render() {
     
     
+
     return (
     <View style = {styles.center}>
       <Text style={styles.inputTitle}>Mass [{this.state.mass}]</Text>
@@ -72,7 +101,8 @@ class Tab1 extends Component {
         <TouchableOpacity style={styles.btn} onPress={this.count}>
           <Button icon='chart-line' mode='contained'>Count</Button>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', { bmi: this.state.bmi })}>
+        
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', { bmi: this.state.bmi, color: this.state.bmiColor })}>
           <Text style={{
               fontSize: 50,
               marginTop: 60,

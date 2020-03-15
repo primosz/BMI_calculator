@@ -9,25 +9,25 @@ import Tab3 from './src/screens/tabs/Tab3';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React, {Component} from 'react';
 import { AsyncStorage } from 'react-native'
 
-
-const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const BottomTabs = createMaterialBottomTabNavigator();
 
 
 class App extends Component {
  
+
+  
    createBottomTabs = () => 
   <BottomTabs.Navigator>
     <BottomTabs.Screen 
       name ="Calculator"
       component={Tab1}
+      
       options={{
           tabBarLabel: 'Home',
           tabBarIcon: () => (
@@ -35,6 +35,7 @@ class App extends Component {
           ),
         }}
      ></BottomTabs.Screen>
+
     <BottomTabs.Screen
     name ="Tab2"
     component={Tab2}
@@ -44,6 +45,7 @@ class App extends Component {
             <Icon style={[{ color: 'white' }]} size={25} name={'settings'} />
           ),
         }}></BottomTabs.Screen>
+
     <BottomTabs.Screen
     name ="Tab3"
     component={Tab3}
@@ -56,8 +58,6 @@ class App extends Component {
 
   </BottomTabs.Navigator>
 
-
-  
 
   render(){
     AsyncStorage.setItem('mass', 'kg');

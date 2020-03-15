@@ -5,9 +5,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch'
   },
+  centerDetails: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   title: {
     fontSize: 50,
-    marginTop: 60,
+    marginTop: 30,
     alignSelf: 'center'
   },
   btn: {
@@ -27,5 +32,14 @@ export const styles = StyleSheet.create({
   input:{
     width:'100%',
     marginBottom:10
+  },
+  paragraph:{
+    margin: 20,
+    textAlign: 'center'
+  },
+  picker:{
+    margin:30,
+    fontSize:30,
+    textAlign: 'center'
   }
 });
