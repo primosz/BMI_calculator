@@ -52,52 +52,69 @@ class Tab1 extends Component {
      })
    }
 
+   calculate = (mass, height, system) =>{
+    let resultBmi=0;
+    if(system=='metric'){
+      let heightFloatM = height/100;
+              let massFloatKg = mass;
+              resultBmi = massFloatKg / (heightFloatM*heightFloatM);
+              this.handleColor(resultBmi);
+              this.setState({bmi: resultBmi.toFixed(2)})
+    }
+    else if(system=='imperial'){
+      let heightFloatIn = height;
+              let massFloatLbs = mass;
+              resultBmi = 703*massFloatLbs / (heightFloatIn*heightFloatIn);
+              this.handleColor(resultBmi);
+              this.setState({bmi: resultBmi.toFixed(2)})
+    }    
+   }
+   
+   handleColor = (resultBmi) =>{
+     
+     if(resultBmi<18.5) this.setState({bmiColor: 'grey'})
+     if(resultBmi>=18.5 && resultBmi<23) this.setState({bmiColor: 'green'})
+     if(resultBmi>=23 && resultBmi<25) this.setState({bmiColor: '#eff40f'})
+     if(resultBmi>=25 && resultBmi<30) this.setState({bmiColor: '#ff6666'})
+     if(resultBmi>30) this.setState({bmiColor: '#cc0000'})
+   }
+
    count = () => {
-     Keyboard.dismiss();
-     let resultBmi=0;
+     Keyboard.dismiss();     
      if (this.state.heightInput == '' || this.state.massInput == '') alert ('Please provide correct values!')
-     else{
+     else{ 
        if(this.state.mass=='kg')
             {
-              let heightFloatM = parseFloat(this.state.heightInput)/100;
-              let massFloatKg = parseFloat(this.state.massInput);
-              resultBmi = massFloatKg / (heightFloatM*heightFloatM);
-              this.setState({bmi: resultBmi.toFixed(2)})
+              this.calculate(parseFloat(this.state.massInput), parseFloat(this.state.heightInput), 'metric')
             }
        else if(this.state.mass=='lbs')
-            {
-              let heightFloatIn = parseFloat(this.state.heightInput);
-              let massFloatLbs = parseFloat(this.state.massInput);
-              resultBmi = 703*massFloatLbs / (heightFloatIn*heightFloatIn);
-              this.setState({bmi: resultBmi.toFixed(2)})
-            }
-            if(resultBmi<18.5) this.setState({bmiColor: 'grey'})
-            if(resultBmi>=18.5 && resultBmi<23) this.setState({bmiColor: 'green'})
-            if(resultBmi>=23 && resultBmi<25) this.setState({bmiColor: '#eff40f'})
-            if(resultBmi>=25 && resultBmi<30) this.setState({bmiColor: '#ff6666'})
-            if(resultBmi>30) this.setState({bmiColor: '#cc0000'})      
-       
-     }
+            {              
+              this.calculate(parseFloat(this.state.massInput), parseFloat(this.state.heightInput), 'imperial')
+            }                         
+     }     
    }
 
   render() {
-    
-    
+       
 
     return (
     <View style = {styles.center}>
       <Text style={styles.inputTitle}>Mass [{this.state.mass}]</Text>
+
       <TextInput
         value={this.state.massInput}
         style={styles.input}
         onChangeText={this.onChangeMassInput}
         keyboardType='numeric'/>
+
       <Text style={styles.inputTitle}>Height [{this.state.height}]</Text>
+
       <TextInput
         value={this.state.heightInput}
         style={styles.input}
         onChangeText={this.onChangeHeightInput}
         keyboardType='numeric'/>
+        
         <TouchableOpacity style={styles.btn} onPress={this.count}>
           <Button icon='chart-line' mode='contained'>Count</Button>
         </TouchableOpacity>
