@@ -115,11 +115,18 @@ class Tab1 extends Component {
         onChangeText={this.onChangeHeightInput}
         keyboardType='numeric'/>
         
-        <TouchableOpacity style={styles.btn} onPress={this.count}>
+        <TouchableOpacity
+         style={styles.btn}
+         onPress={this.count}
+         accessibilityLabel = 'countBtn'
+         >
           <Button icon='chart-line' mode='contained'>Count</Button>
         </TouchableOpacity>
         
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', { bmi: this.state.bmi, color: this.state.bmiColor })}>
+        <TouchableOpacity
+         onPress={() => this.props.navigation.navigate('Details', { bmi: this.state.bmi, color: this.state.bmiColor })}
+         
+         >
           <Text style={{
               fontSize: 50,
               marginTop: 60,
