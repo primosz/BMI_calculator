@@ -37,7 +37,7 @@ class App extends Component {
      ></BottomTabs.Screen>
 
     <BottomTabs.Screen
-    name ="Tab2"
+    name ="Settings"
     component={Tab2}
     options={{
           tabBarLabel: 'Settings',
@@ -47,7 +47,7 @@ class App extends Component {
         }}></BottomTabs.Screen>
 
     <BottomTabs.Screen
-    name ="Tab3"
+    name ="About"
     component={Tab3}
     options={{
           tabBarLabel: 'About',

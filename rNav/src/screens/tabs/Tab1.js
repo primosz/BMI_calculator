@@ -94,6 +94,9 @@ class Tab1 extends Component {
      }     
    }
 
+   handleBmiClick = () => {
+     if(this.state.bmi!='') this.props.navigation.navigate('Details', { bmi: this.state.bmi, color: this.state.bmiColor })
+   } 
   render() {
        
 
@@ -105,7 +108,8 @@ class Tab1 extends Component {
         value={this.state.massInput}
         style={styles.input}
         onChangeText={this.onChangeMassInput}
-        keyboardType='numeric'/>
+        keyboardType='numeric'
+        accessibilityLabel = 'massInput'/>
 
       <Text style={styles.inputTitle}>Height [{this.state.height}]</Text>
 
@@ -113,7 +117,8 @@ class Tab1 extends Component {
         value={this.state.heightInput}
         style={styles.input}
         onChangeText={this.onChangeHeightInput}
-        keyboardType='numeric'/>
+        keyboardType='numeric'
+        accessibilityLabel = 'heightInput'/>
         
         <TouchableOpacity
          style={styles.btn}
@@ -124,15 +129,16 @@ class Tab1 extends Component {
         </TouchableOpacity>
         
         <TouchableOpacity
-         onPress={() => this.props.navigation.navigate('Details', { bmi: this.state.bmi, color: this.state.bmiColor })}
-         
+         onPress={this.handleBmiClick}
          >
           <Text style={{
               fontSize: 50,
               marginTop: 60,
               alignSelf: 'center',
               color: this.state.bmiColor
-          }}>{this.state.bmi}</Text> 
+          }}
+              accessibilityLabel = 'resultText'
+              >{this.state.bmi}</Text> 
         </TouchableOpacity>      
         
     </View>

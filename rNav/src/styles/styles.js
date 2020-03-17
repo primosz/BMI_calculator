@@ -41,5 +41,10 @@ export const styles = StyleSheet.create({
     margin:30,
     fontSize:30,
     textAlign: 'center'
+  },
+  text:{
+    margin:10,
+    fontSize:20,
+    textAlign: 'center'
   }
 });
